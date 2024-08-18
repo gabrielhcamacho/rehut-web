@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+
+@layer base {
+    h1 {
+      @apply text-2xl;
+      @apply lg:text-5xl;
+      @apply leading-relaxed;
+      @apply text-dark-blue;
+      @apply font-bold;
+    }
+    h2 {
+      @apply text-2xl;
+      @apply lg:text-4xl;
+      @apply text-dark-blue;
+      @apply leading-relaxed;
+      @apply font-bold;
+    }
+    h3 {
+      @apply text-2xl;
+      @apply lg:text-4xl; 
+      @apply text-dark-blue;
+      @apply leading-relaxed;
+      @apply font-bold;
+    }
+    h4 {
+      @apply text-lg;
+      @apply lg:text-3xl; 
+      @apply text-dark-blue;
+      @apply leading-relaxed;
+    }
+    p{
+      @apply text-base;
+      @apply lg:text-xl; 
+      @apply leading-relaxed;
+      @apply tracking-wide;
+      @apply subpixel-antialiased;
+      @apply font-light;
+    }
+    a:hover{
+      @apply text-text
+    }
+    
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+
+.ant-picker{
+  outline: none;
+  border: 2px solid #f1f5f9 !important;
+  box-shadow: 0 0 0 2px transparent!important;
+  border-radius: 6px !important;
+  padding:8px !important;
+  color: #343D48;
+}
+
+@media (max-width: 1280px) {
+  .ant-picker {
+    width: 250px;
+  }
+}
+
+/* Estilo para telas maiores que 1281px */
+@media (min-width: 1281px) {
+  .ant-picker {
+    width: 300px;
+  }
+}
+
+.ant-picker.datepicker input::placeholder {
+  color: #9CA3AF; /* Substitua pela cor desejada para o placeholder */
+}
+
+.ant-segmented-item-selected {
+  background-color: #1890ff !important; /* Cor de fundo do item selecionado */
+  color: white !important; /* Cor do texto do item selecionado */
+}
+
+.ant-segmented-item-selected:hover {
+  background-color: #40a9ff !important; /* Cor de fundo do item selecionado ao passar o mouse */
+}
+
+.ant-picker-focused {
+  outline: none;
+  border: 2px solid #008FFB !important;
+  box-shadow: 0 0 0 2px transparent!important;
+}
+
+
+
+input.ant-input{
+  width: 100%;
+  padding: 10px 16px;
+  color: '#343D48';
+  border: 2px solid #d9d9d9;
+  border-radius: 4px;
+  outline: none;
+}
+
+div.ant-select{
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+}
+
+textarea.ant-input{
+  border: 2px solid #d9d9d9;
+  border-radius: 4px;
+  max-width: 740px !important;
+}
+
+/* button.ant-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 25px;
+  margin-top: 35px;
+  font-size: 1.1rem;
+  color: white;
+  background-color: #ea3a60 !important;
+  border: none;
+}
+
+button.ant-btn:hover {
+  filter: brightness(115%);
+  color: white;
+} */
+
+.ant-modal-footer {
+  padding: 30px 16px;
+  display:flex;
+  align-items: center;
+  background: transparent;
+  border-top: 1px solid #f0f0f0;
+  border-radius: 0 0 2px 2px;
+}
+
+.custom-icon{
+  font-size: 40px;
+}
+
+.checkbox-spacing > label {
+  @apply mb-2;
+}
+
+
+
+/* Adiciona estilo de borda vermelha para inputs inválidos */
+.ant-form-item-has-error .ant-input,
+.ant-form-item-has-error .ant-select,
+.ant-form-item-has-error .ant-picker {
+  border-color: #f5222d !important;
+}
+
+.ant-form-item-has-error .ant-picker .ant-picker-input > input {
+  border-color: #f5222d !important;
+}
+
+.ant-form-item-has-error .ant-picker-focused {
+  border-color: #f5222d !important;
+}
+
+.ant-form-item-explain-error {
+  color: #f5222d;
+}
