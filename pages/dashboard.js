@@ -86,14 +86,7 @@ export const getServerSideProps = async (ctx) => {
     const apiClient = getAPIClient(ctx)
     const { ['rehut.token']: token } = parseCookies(ctx)
 
-    if (!token) {
-        return {
-            redirect: {
-                destination: '/signIn',
-                permanent: false,
-            }
-        }
-    }
+
 
     //user apiClient quando for fazer req server side e usar api quando for client side
     try {
@@ -110,7 +103,7 @@ export const getServerSideProps = async (ctx) => {
 
         return {
             redirect: {
-                destination: '/signIn',
+                destination: '/anuncios',
                 permanent: false,
             },
         };
