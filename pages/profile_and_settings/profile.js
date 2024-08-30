@@ -1,43 +1,54 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react'
+import { Board } from '../../src/components/Board'
 import { IoMdPerson, IoMdSettings } from "react-icons/io";
 import { LuSettings2 } from "react-icons/lu";
-import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
-import { Modal, Upload, Button } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
 import HeaderDashboard from '../../src/components/Header/HeaderDashboard'
 import Sidebar from '../../src/components/Sidebar'
 import Drawer from '../../src/components/Drawer'
-import { Board } from '../../src/components/Board'
+import { AiFillEdit, AiFillDelete } from 'react-icons/ai'
+import { Modal, Popover } from 'antd';
 
 export default function Users() {
     const [isOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [visible, setVisible] = useState(false);
     const [profileImage, setProfileImage] = useState("https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg");
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-
+    const showModal = () => setVisible(true);
     const handleOk = () => {
-        setIsModalVisible(false);
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            setVisible(false);
+        }, 3000);
     };
+    const handleCancel = () => setVisible(false);
 
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
-
-    const handleUpload = (info) => {
-        const isImage = info.file.type.startsWith('image/');
-        if (isImage) {
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
             const reader = new FileReader();
-            reader.onload = () => {
+            reader.onloadend = () => {
                 setProfileImage(reader.result);
             };
-            reader.readAsDataURL(info.file.originFileObj);
+            reader.readAsDataURL(file);
         }
     };
+
+    const content = (
+        <div className='w-[100px]'>
+            <div className='flex items-center justify-between cursor-pointer hover:bg-gray-super-light py-2 px-3 rounded-md'>
+                <span className='text-text'>Editar</span>
+                <AiFillEdit className="text-text cursor-pointer hover:brightness-110" />
+            </div>
+            <div className='flex items-center justify-between cursor-pointer hover:bg-gray-super-light py-2 px-3 rounded-md'>
+                <span className='text-text'>Deletar</span>
+                <AiFillDelete className="text-text cursor-pointer hover:brightness-110" />
+            </div>
+        </div>
+    );
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -70,15 +81,17 @@ export default function Users() {
                                     <img
                                         src={profileImage}
                                         alt="profile image"
-                                        className='rounded-full object-cover w-24 h-24 border-2 border-blue-500 cursor-pointer'
-                                        onClick={showModal} // Abre o modal ao clicar na imagem
+                                        className='rounded-full object-cover w-24 h-24 border-2 border-blue-500'
                                     />
-                                    <button
-                                        className='ml-8 px-4 py-2 bg-blue-500 text-white rounded-md text-sm hover:bg-blue-600'
-                                        onClick={showModal} // Também pode abrir o modal ao clicar no botão
-                                    >
+                                    <label className='ml-8 px-4 py-2 bg-blue-500 text-white rounded-md text-sm hover:bg-blue-600 cursor-pointer'>
                                         Alterar imagem
-                                    </button>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            className="hidden"
+                                            onChange={handleImageChange}
+                                        />
+                                    </label>
                                 </div>
                             </div>
 
@@ -105,7 +118,7 @@ export default function Users() {
                                 <input
                                     type="number"
                                     className='border border-gray-light rounded-md p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500'
-                                    placeholder="Digite o seu telefone..."
+                                    placeholder="Digite o telefone..."
                                 />
                             </div>
 
@@ -119,23 +132,6 @@ export default function Users() {
                 </Board>
                 <Drawer isOpen={isOpen} setIsOpen={setIsOpen} />
             </div>
-
-            {/* Modal para alterar a imagem de perfil */}
-            <Modal
-                title="Alterar imagem de perfil"
-                visible={isModalVisible}
-                onOk={handleOk}
-                onCancel={handleCancel}
-                footer={null}
-            >
-                <Upload
-                    showUploadList={false}
-                    beforeUpload={() => false} // Previne o upload automático
-                    onChange={handleUpload}
-                >
-                    <Button icon={<UploadOutlined />}>Upload nova imagem</Button>
-                </Upload>
-            </Modal>
         </div>
     )
 }
