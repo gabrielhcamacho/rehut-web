@@ -1,15 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { DataGrid } from '@mui/x-data-grid';
-
-import {
-  AiOutlinePlus,
-  AiFillDelete,
-  AiFillEdit,
-  AiOutlineUpload
-} from 'react-icons/ai'
-
+import { AiOutlinePlus, AiFillDelete, AiFillEdit, AiOutlineUpload } from 'react-icons/ai'
 import { StatusText } from './styled'
 
 export const leadsData = [
@@ -28,92 +20,61 @@ export const leadsData = [
 ];
 
 export default function LeadList() {
-
-
-  const [data, setData] = useState(leadsData)
+  const [data, setData] = useState(leadsData);
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
-  }
+  };
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
-    {
-      field: 'nomeCompleto',
-      headerName: 'Nome',
-      description: 'This column has a value getter and is not sortable.',
-      sortable: false,
-      width: 170,
-    },
-    {
-      field: 'age',
-      headerName: 'Idade',
-      type: 'number',
-      width: 110,
-      editable: true,
-      align: "left",
-      headerAlign: "left"
-    },
-    {
-      field: 'email',
-      headerName: 'Email',
-      width: 200,
-      editable: true,
-    },
-    {
-      field: 'ultimoContato',
-      headerName: 'Ultimo Contato',
-      width: 190,
-      editable: true,
-    },
+    { field: 'id', headerName: 'ID', width: 60, flex: 0.5 }, // Flex para ajustar a responsividade
+    { field: 'nomeCompleto', headerName: 'Nome', sortable: false, width: 170, flex: 1 },
+    { field: 'age', headerName: 'Idade', type: 'number', width: 100, flex: 0.5, align: "left", headerAlign: "left" },
+    { field: 'email', headerName: 'Email', width: 200, flex: 1 },
+    { field: 'ultimoContato', headerName: 'Ultimo Contato', width: 190, flex: 1 },
     {
       field: 'Status',
       headerName: 'Status',
-      width: 110,
-      editable: true,
-      align: "left",
-      renderCell: (params) => {
-        return (
-          <div className=''>
-            <StatusText
-              className="text-base"
-              status={params.row.status}
-              onClick={() => handleDelete(params.row.id)}
-            >{params.row.status}</StatusText>
-          </div>
-        );
-      },
+      width: 120,
+      flex: 0.5,
+      renderCell: (params) => (
+        <div className=''>
+          <StatusText
+            className="text-base"
+            status={params.row.status}
+            onClick={() => handleDelete(params.row.id)}
+          >{params.row.status}</StatusText>
+        </div>
+      ),
     },
     {
       field: 'Opção',
       headerName: 'Opção',
       width: 110,
-      editable: true,
-      renderCell: (params) => {
-        return (
-          <div className='flex justify-around w-full items-center'>
-            <Link href={"/leads/" + params.row.id}>
-              <AiFillEdit className='text-text text-lg cursor-pointer hover:brightness-150' />
-            </Link>
-            <AiFillDelete
-              className="text-primary text-lg cursor-pointer hover:brightness-110"
-              onClick={() => handleDelete(params.row.id)}
-            />
-          </div>
-        );
-      },
+      flex: 0.5,
+      renderCell: (params) => (
+        <div className='flex justify-around w-full items-center'>
+          <Link href={"/leads/" + params.row.id}>
+            <AiFillEdit className='text-text text-lg cursor-pointer hover:brightness-150' />
+          </Link>
+          <AiFillDelete
+            className="text-primary text-lg cursor-pointer hover:brightness-110"
+            onClick={() => handleDelete(params.row.id)}
+          />
+        </div>
+      ),
     },
   ];
 
-
   return (
-    <div className='h-[400px] w-full'>
-      <div className='flex justify-between'>
-        <span className="font-bold text-text-darker text-2xl ml-2">Leads</span>
+    <div className='h-full w-5/6 px-4 md:px-8'>
+      <div className='flex flex-col md:flex-row justify-between items-center mb-4'>
+        <span className="font-bold text-text-darker text-2xl ml-2 mb-2 md:mb-0">Leads</span>
         <div className='flex'>
-
-          <label htmlFor="fotoUpload" className='flex items-center rounded px-4 py-2 bg-primary text-white hover:brightness-110 mr-5 shadow-md shadow-primary-shadow'><AiOutlineUpload className="mr-1" />
-            Upload leads</label>
+          <label htmlFor="fotoUpload" className='flex items-center rounded px-4 py-2 bg-primary text-white hover:brightness-110 mr-3 shadow-md shadow-primary-shadow'>
+            <AiOutlineUpload className="mr-1" />
+            Upload leads
+          </label>
           <input type="file" id="fotoUpload" className='hidden' />
 
           <Link href='/leads/newLead'>
@@ -125,17 +86,18 @@ export default function LeadList() {
         </div>
       </div>
 
-      <div className='mt-5'></div>
-      <DataGrid
-        rows={data}
-        columns={columns}
-        pageSize={8}
-        rowsPerPageOptions={[10]}
-        checkboxSelection
-        disableSelectionOnClick
-        autoHeight={true}
-
-      />
+      <div className='flex mt-10 w-full'>
+        <DataGrid
+          rows={data}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[5, 10, 15]}
+          checkboxSelection
+          disableSelectionOnClick
+          autoHeight
+          className='bg-white'
+        />
+      </div>
     </div>
-  )
+  );
 }

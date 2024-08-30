@@ -103,7 +103,7 @@ export const getServerSideProps = async (ctx) => {
 
         return {
             redirect: {
-                destination: '/anuncios',
+                destination: '/dashboard',
                 permanent: false,
             },
         };

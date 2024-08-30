@@ -6,7 +6,7 @@ import { Board } from '../../src/components/Board'
 import HeaderDashboard from '../../src/components/Header/HeaderDashboard'
 import Sidebar from '../../src/components/Sidebar'
 import Drawer from '../../src/components/Drawer'
-import {leadsData} from '../../src/components/Leads/LeadList'
+import { leadsData } from '../../src/components/Leads/LeadList'
 
 import {
   AiOutlinePlus,
@@ -204,7 +204,7 @@ export default function UserId(id, nomeCompleto, age, ultimoContato, email, stat
                       <img src="https://images.pexels.com/photos/7562313/pexels-photo-7562313.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt="profile image"
                         className='rounded-lg object-cover w-40 h-40'
                       />
-                      <label htmlFor="fotoUpload"><AiOutlineUpload className='text-3xl ml-4 cursor-pointer'/></label>
+                      <label htmlFor="fotoUpload"><AiOutlineUpload className='text-3xl ml-4 cursor-pointer' /></label>
                       <input type="file" id="fotoUpload" className='hidden' />
                     </div>
                   </div>
