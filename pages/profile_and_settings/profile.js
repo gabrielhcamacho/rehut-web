@@ -123,7 +123,7 @@ export default function Users() {
                             </div>
 
                             <div className="flex justify-end">
-                                <button disabled className="px-6 py-3 bg-gray-400 rounded-md text-white text-sm cursor-not-allowed">
+                                <button className="px-6 py-3 bg-gray-400 rounded-md text-white text-sm cursor-not-allowed bg-black">
                                     Salvar alterações
                                 </button>
                             </div>
